@@ -3,6 +3,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -20,6 +21,7 @@ public class StandAloneTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String productName1 = "ZARA COAT 3";
         String productName2 = "iphone 13 pro";
+        Actions action = new Actions(driver);
 
         driver.findElement(By.xpath("//input[@id = 'userEmail']")).sendKeys("ilmilan@gmail.com");
         driver.findElement(By.xpath("//input[@id = 'userPassword']")).sendKeys("8vPQ9*9*FTBC7qh");
@@ -54,11 +56,19 @@ public class StandAloneTest {
         driver.findElement(By.xpath("//li[@class = 'totalRow']//button")).click();
 
 
-        driver.findElement(By.xpath("//input[@placeholder='Select Country']")).sendKeys("India");
+        action.sendKeys(driver.findElement(By.xpath("//input[@placeholder='Select Country']")), "India").perform();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//section[@class='ta-results list-group ng-star-inserted']")));
-        List<WebElement> dropDown = driver.findElements(By.xpath("//section[@class='ta-results list-group ng-star-inserted']"));
-        WebElement elements = dropDown.stream().filter(element -> element.findElement(By.xpath("//span")).getText().equals("India")).findFirst().orElse(null);
-        elements.findElement(By.xpath("//button")).click();
+
+        driver.findElement(By.xpath("(//button[contains(@class, 'ta-item')])[2]")).click();
+
+        driver.findElement(By.xpath("//a[@class = 'btnn action__submit ng-star-inserted']")).click();
+
+        String confirmationMessage = driver.findElement(By.cssSelector(".hero-primary")).getText().trim();
+
+        Assert.assertEquals(confirmationMessage, "THANKYOU FOR THE ORDER.");
+
+
+
 
 
 
