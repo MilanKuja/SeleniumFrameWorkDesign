@@ -38,7 +38,7 @@ public class ProductCatlog extends AbstractComponent {
     }
 
     public void addProductToCart(String productName) {
-        WebElement product = getProductByName(productName).findElement(addToCart);
+        WebElement product = getProductByName(productName);
         product.findElement(addToCart).click();
         waitForElementToAppear(toastMassage);
         waitForElementToDisappear(toastMassage);
