@@ -14,6 +14,7 @@ public class LandingPage extends AbstractComponent {
 
         String loginButton = "//input[@id='login']";
 
+        String errorMessage = "//div[contains (@aria-label, 'Incorrect email')]";
 
         public ProductCatlog logInApplication(String email, String password) {
             getDriver().findElement(By.xpath(userEmail)).sendKeys(email);
@@ -25,6 +26,12 @@ public class LandingPage extends AbstractComponent {
         public LandingPage gotTo() {
             getDriver().get("https://rahulshettyacademy.com/client");
             return this;
+        }
+
+        public String getErrorMessage() {
+            waitForElementToAppear(By.xpath(errorMessage));
+            return getDriver().findElement(By.xpath(errorMessage)).getText();
+
         }
 
 }

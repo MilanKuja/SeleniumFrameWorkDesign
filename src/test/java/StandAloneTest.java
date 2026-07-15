@@ -1,14 +1,9 @@
-package rahulshettyAcedamy;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import rahulshettyacademy.pageObject.CartPage;
 import rahulshettyacademy.pageObject.LandingPage;
-
-import java.time.Duration;
 
 public class StandAloneTest extends LandingPage{
 
@@ -20,10 +15,9 @@ public class StandAloneTest extends LandingPage{
         }
 
         @Test
-                public void testing() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+                public void testingEndToEnd() {
         String productName = "ZARA COAT 3";
-        Actions action = new Actions(getDriver());
+
 
         LandingPage landingPage = new LandingPage();
         landingPage.gotTo().
@@ -36,6 +30,13 @@ public class StandAloneTest extends LandingPage{
         cartPage.goToCheckOut().selectCountry("India").submitOrder()
                 .getConfirmationMessage();
 
+        }
+
+        @Test
+        public void LogInErrorValidation() {
+                LandingPage landingPage = new LandingPage();
+                landingPage.logInApplication("ilmilan@gmail.com", "8vPQ9*9*FTBC7q");
+                Assert.assertEquals(landingPage.getErrorMessage(), "Incorrect email or password.");
         }
 
         @AfterEach
