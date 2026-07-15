@@ -1,32 +1,33 @@
 package rahulshettyacademy.AbstractComponents;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import rahulshettyAcedamy.TestComponents.Driver;
 import rahulshettyacademy.pageObject.CartPage;
 
 import java.time.Duration;
+import java.util.List;
 
-public class AbstractComponent {
+public class AbstractComponent extends Driver {
 
 
-    WebDriverWait wait;
-    WebDriver driver;
-    public AbstractComponent(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+    JavascriptExecutor js = (JavascriptExecutor) getDriver();
+
+
+    String cartHeader = "//*[contains(@routerlink, 'cart')]";
+
+
+    public void openUrl(String url) {
+        createDriver();
+        getDriver().navigate().to(url);
     }
-    @FindBy(xpath = "//*[contains(@routerlink, 'cart')]")
-    WebElement cartHeader;
 
-
-
-
-    public void waitForElementToAppear(By findBy) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
+    public void waitForElementToAppear(By locator) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public void waitForElementToDisappear(By findBy) {
@@ -34,8 +35,16 @@ public class AbstractComponent {
     }
 
     public CartPage gotToCartPage() {
-        cartHeader.click();
-        return new CartPage(driver);
+        getDriver().findElement(By.xpath(cartHeader)).click();
+        return new CartPage();
     }
+
+
+    public List<WebElement> getProductList(By findBy) {
+        waitForElementToAppear(findBy);
+        return getDriver().findElements(findBy);
+    }
+
+
 
 }
