@@ -47,7 +47,7 @@ public class StandAloneTest extends LandingPage{
         @DataProvider
         public Object[][] getData() throws IOException {
 
-                List<HashMap<String, String>> data = getJsaonDataToMap(System.getProperty("user.dir") + "\\src\\test\\java\\rahulshettyacademy\\date\\PurchaseOrder.json");
+                List<HashMap<String, String>> data = getJsonDataToMap(System.getProperty("user.dir") + "\\src\\test\\java\\rahulshettyacademy\\date\\PurchaseOrder.json");
                 return new Object[][] {{data.get(0)}, {data.get(1)}};
         }
 

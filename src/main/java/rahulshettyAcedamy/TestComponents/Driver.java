@@ -56,7 +56,7 @@ public class Driver {
         return driver.get();
     }
 
-    public List<HashMap<String, String>> getJsaonDataToMap(String filePath) throws IOException {
+    public List<HashMap<String, String>> getJsonDataToMap(String filePath) throws IOException {
         String jsonContetnt = FileUtils.readFileToString(new File(filePath),
                 StandardCharsets.UTF_8);
         //String to HashMap Jackson Databind
@@ -65,7 +65,7 @@ public class Driver {
         });
     }
 
-    public String getScreenshot(String testCase) throws IOException {
+    public File getScreenshot(String testCase) throws IOException {
         TakesScreenshot screenshot = (TakesScreenshot) driver;
         File source = screenshot.getScreenshotAs(OutputType.FILE);
         File file = new File(System.getProperty("user.dir") + "//reports//" + testCase +".pgn");
