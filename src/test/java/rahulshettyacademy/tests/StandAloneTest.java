@@ -6,6 +6,10 @@ import org.testng.annotations.DataProvider;
 import rahulshettyacademy.pageObject.CartPage;
 import rahulshettyacademy.pageObject.LandingPage;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+
 public class StandAloneTest extends LandingPage{
 
 
@@ -16,14 +20,14 @@ public class StandAloneTest extends LandingPage{
         }
 
         @org.testng.annotations.Test(dataProvider = "getData", groups = {"Purchase"})
-                public void submitOrder(String email, String password, String productName) {
+                public void submitOrder(HashMap<String, String> input) {
 
 
         LandingPage landingPage = new LandingPage();
         landingPage.
-        logInApplication(email, password)
-        .addProductToCart(productName)
-        .gotToCartPage().verifyProductDisplayed(productName);
+        logInApplication(input.get("email"), input.get("password"))
+        .addProductToCart(input.get("product"))
+        .gotToCartPage().verifyProductDisplayed(input.get("product"));
 
 
         CartPage cartPage = new CartPage();
@@ -41,8 +45,10 @@ public class StandAloneTest extends LandingPage{
         }
 
         @DataProvider
-        public Object[][] getData() {
-                return new Object[] [] {{"ilmilan@gmail.com","8vPQ9*9*FTBC7qh", "ZARA COAT 3"} , {"ilnikola@gmail.com", "8vPQ9*9*FTBC7qh", "ADIDAS ORIGINAL"}};
+        public Object[][] getData() throws IOException {
+
+                List<HashMap<String, String>> data = getJsaonDataToMap(System.getProperty("user.dir") + "\\src\\test\\java\\rahulshettyacademy\\date\\PurchaseOrder.json");
+                return new Object[][] {{data.get(0)}, {data.get(1)}};
         }
 
 
