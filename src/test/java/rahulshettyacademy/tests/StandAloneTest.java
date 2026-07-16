@@ -1,7 +1,7 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.testng.Assert;
+package rahulshettyacademy.tests;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import rahulshettyacademy.pageObject.CartPage;
 import rahulshettyacademy.pageObject.LandingPage;
 
@@ -9,18 +9,18 @@ public class StandAloneTest extends LandingPage{
 
 
 
-        @BeforeEach
+        @BeforeMethod(alwaysRun = true)
         public void startUp() {
                 openUrl("https://rahulshettyacademy.com/client");
         }
 
-        @Test
+        @org.testng.annotations.Test
                 public void testingEndToEnd() {
         String productName = "ZARA COAT 3";
 
 
         LandingPage landingPage = new LandingPage();
-        landingPage.gotTo().
+        landingPage.
         logInApplication("ilmilan@gmail.com", "8vPQ9*9*FTBC7qh")
         .addProductToCart(productName)
         .gotToCartPage().verifyProductDisplayed(productName);
@@ -32,14 +32,19 @@ public class StandAloneTest extends LandingPage{
 
         }
 
-        @Test
-        public void LogInErrorValidation() {
+        @org.testng.annotations.Test(dependsOnMethods = {"testingEndToEnd"})
+        public void OrderHistoryTest() {
+                String productName = "ZARA COAT 3";
                 LandingPage landingPage = new LandingPage();
-                landingPage.logInApplication("ilmilan@gmail.com", "8vPQ9*9*FTBC7q");
-                Assert.assertEquals(landingPage.getErrorMessage(), "Incorrect email or password.");
+                landingPage.logInApplication("ilmilan@gmail.com", "8vPQ9*9*FTBC7qh")
+                        .goToOrdersPage().verifyOrderDisplay(productName);
         }
 
-        @AfterEach
+
+
+
+
+        @AfterMethod(alwaysRun = true)
         public void tareDown() {
             quitDriver();
         }

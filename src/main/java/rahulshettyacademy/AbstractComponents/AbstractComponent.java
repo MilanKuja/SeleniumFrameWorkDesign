@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import rahulshettyAcedamy.TestComponents.Driver;
 import rahulshettyacademy.pageObject.CartPage;
+import rahulshettyacademy.pageObject.OrderPage;
 
 import java.time.Duration;
 import java.util.List;
@@ -43,6 +44,13 @@ public class AbstractComponent extends Driver {
     public List<WebElement> getProductList(By findBy) {
         waitForElementToAppear(findBy);
         return getDriver().findElements(findBy);
+    }
+
+    public OrderPage goToOrdersPage() {
+        waitForElementToAppear(By.xpath("//button[@routerlink='/dashboard/myorders']"));
+        getDriver().findElement(By.xpath("//button[@routerlink='/dashboard/myorders']")).click();
+        return new OrderPage();
+
     }
 
 

@@ -9,10 +9,10 @@ import java.util.Map;
 
 public class Driver {
 
-    private static WebDriver driver;
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static  WebDriver getDriver() {
-        return driver;
+        return driver.get();
 
     }
 
@@ -42,15 +42,15 @@ public class Driver {
 //          prefs.put("profile.default_content_setting_values.media_stream_camera", 2); -- gasenje kamere
 //          prefs.put("profile.default_content_setting_values.media_stream_mic", 2); -- gasenje mikrofona
 
-            driver= new ChromeDriver(options);
+            driver.set(new ChromeDriver(options));
         }
-        return driver;
+        return driver.get();
     }
 
     public static void quitDriver() {
-        if (driver!=null) {
-            driver.close();
-            driver = null;
+        if (driver.get()!=null) {
+            driver.get().quit();
+            driver.remove();
         }
     }
 }
