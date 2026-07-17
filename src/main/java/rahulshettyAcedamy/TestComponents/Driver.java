@@ -65,12 +65,12 @@ public class Driver {
         });
     }
 
-    public File getScreenshot(String testCase) throws IOException {
-        TakesScreenshot screenshot = (TakesScreenshot) driver;
+    public String getScreenshot(String testCase) throws IOException {
+        TakesScreenshot screenshot = (TakesScreenshot) getDriver();
         File source = screenshot.getScreenshotAs(OutputType.FILE);
-        File file = new File(System.getProperty("user.dir") + "//reports//" + testCase +".pgn");
+        File file = new File(System.getProperty("user.dir") + "//reports//" + testCase +".png");
         FileUtils.copyFile(source, file);
-        return file;
+        return System.getProperty("user.dir") + "//reports//" + testCase +".png";
 
     }
 

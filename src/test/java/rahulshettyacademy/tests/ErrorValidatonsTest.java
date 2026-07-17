@@ -19,7 +19,7 @@ public class ErrorValidatonsTest extends LandingPage {
     public void LogInErrorValidation() {
         LandingPage landingPage = new LandingPage();
         landingPage.logInApplication("ilmilan@gmail.com", "8vPQ9*9*FTBC7q");
-        Assert.assertEquals(landingPage.getErrorMessage(), "Incorrect email or password.");
+        Assert.assertEquals(landingPage.getErrorMessage(), "Incorrect emaipassword.");
     }
 
     @AfterMethod(alwaysRun = true)
