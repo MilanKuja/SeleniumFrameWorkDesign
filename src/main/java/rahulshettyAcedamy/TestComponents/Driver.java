@@ -43,7 +43,6 @@ public class Driver {
             prefs.put("download.prompt_for_download", false);
             prefs.put("safebrowsing.enabled", true);
 
-
             options.setExperimentalOption("prefs", prefs);
 //          prefs.put("credentials_enable_service", false); --- gasi servis za upravljanje kredencijalima.
 //          prefs.put("profile.password_manager_enabled", false); --- gasi prikaz Password Manager funkcionalnosti u profilu.
