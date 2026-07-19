@@ -1,11 +1,12 @@
 package Vezbe;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class StreamListsVezbeTest extends StreamVezbe{
-    @BeforeEach
+        @BeforeMethod
     public void startUp() {
         openUrl("https://rahulshettyacademy.com/AutomationPractice/");
     }
@@ -26,7 +27,7 @@ public class StreamListsVezbeTest extends StreamVezbe{
                 .forEach(System.out::println);
     }
 
-    @AfterEach
+    @AfterMethod
     public void tareDown() {
         quitDriver();
     }
